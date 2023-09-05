@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
+import BasicLayout from "../../layout/BasicLayout";
 
 const IndexPage = () => {
   return (
     <div>
-        <h1>Board</h1>
-      <Outlet></Outlet>
+      <BasicLayout>
+        <Outlet></Outlet>
+      </BasicLayout>
     </div>
   );
 };

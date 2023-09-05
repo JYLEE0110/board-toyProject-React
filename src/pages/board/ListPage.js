@@ -1,6 +1,11 @@
+import Listcomponent from "../../components/board/ListComponent";
+
 const ListPage = () => {
     return ( 
-        <div>BoardList</div>
+        <div>
+            <Listcomponent></Listcomponent>
+        </div>
+        
      );
 }
  
