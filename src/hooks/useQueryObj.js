@@ -17,7 +17,10 @@ const checkNull = (obj) => {
 
 const useQueryObj = () => {
 
-    const [search, setSearch] = useSearchParams()
+    // useSearchParams()는 URL의 쿼리스트링이 변경될때 마다 읽는다.
+    // 내부적으로 useEffect를 사용한다.
+    
+    const [search, setSearch] = useSearchParams() 
     const navigate = useNavigate()
 
     // 페이지 이동 / 검색 시 setSearch로 쿼리스트링 정보를 추출

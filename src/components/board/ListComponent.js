@@ -1,61 +1,46 @@
 import { useEffect, useState } from "react";
 import { getBoardList } from "../../api/boardAPI";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Button, Card, CardBody, CardFooter, CardHeader, IconButton, Input, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  IconButton,
+  Input,
+  Typography,
+} from "@material-tailwind/react";
 import ListPageComponent from "../common/ListPageComponent";
 
 const initState = {
-  list : [],
-  total : 0,
-  page : 0,
-  size : 0,
-  startNum : 0,
-  endNum : 0,
-  prevBtn : false,
-  nextBtn : false,
-  replyLast : false,
-  pageNums : []
-}
+  list: [],
+  total: 0,
+  page: 0,
+  size: 0,
+  startNum: 0,
+  endNum: 0,
+  prevBtn: false,
+  nextBtn: false,
+  replyLast: false,
+  pageNums: [],
+};
 
-const Listcomponent = ({queryObj, movePage, moveRead}) => {
+const Listcomponent = ({ queryObj, movePage, moveRead }) => {
+  const [boardList, setBoardList] = useState({ ...initState });
 
-  const [boardList, setBoardList] = useState({...initState})
-
-  useEffect(()=>{
+  useEffect(() => {
     getBoardList(queryObj).then((data) => {
-      setBoardList(data)
-    })
-  },[queryObj])
-  
+      setBoardList(data);
+    });
+  }, [queryObj]);
+
   const TABLE_HEAD = ["Bno", "Writer", "Title", "RegistDate", "FileName"];
 
-    return ( 
-
-      <Card className="h-full w-full">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-              Recent Transactions
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              These are details about the last transactions
-            </Typography>
-          </div>
-          <div className="flex w-full shrink-0 gap-2 md:w-max">
-            <div className="w-full md:w-72">
-              <Input
-                label="Search"
-                icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-              />
-            </div>
-            {/* <Button className="flex items-center gap-3" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
-            </Button> */}
-          </div>
-        </div>
-      </CardHeader>
-      <CardBody className="overflow-scroll px-0">
+  return (
+    <div>
+      
+      <CardBody className="px-3">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -77,21 +62,12 @@ const Listcomponent = ({queryObj, movePage, moveRead}) => {
           </thead>
           <tbody>
             {boardList.list.map(
-              (
-                {
-                  bno,
-                  writer,
-                  boardTitle,
-                  regDate,
-                  fileName
-                },
-                index,
-              ) => {
+              ({ bno, writer, boardTitle, regDate, fileName }, index) => {
                 const isLast = index === boardList.list.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
- 
+
                 return (
                   <tr key={bno}>
                     <td className={classes}>
@@ -99,7 +75,6 @@ const Listcomponent = ({queryObj, movePage, moveRead}) => {
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
-                        
                       >
                         {bno}
                       </Typography>
@@ -118,7 +93,7 @@ const Listcomponent = ({queryObj, movePage, moveRead}) => {
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
-                        onClick = {() => moveRead(bno)}
+                        onClick={() => moveRead(bno)}
                       >
                         {boardTitle}
                       </Typography>
@@ -138,23 +113,20 @@ const Listcomponent = ({queryObj, movePage, moveRead}) => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                         {fileName || ""}
+                        {fileName || ""}
                       </Typography>
                     </td>
                   </tr>
                 );
-              },
+              }
             )}
           </tbody>
         </table>
       </CardBody>
-      
-        <ListPageComponent movePage={movePage} {...boardList}></ListPageComponent>
-    
-    </Card>
-  );
 
-    
-}
- 
+      <ListPageComponent movePage={movePage} {...boardList}></ListPageComponent>
+    </div>
+  );
+};
+
 export default Listcomponent;

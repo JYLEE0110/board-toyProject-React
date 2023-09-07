@@ -75,7 +75,7 @@ import { Link } from "react-router-dom";
     );
   
     return (
-      <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mb-4">
+      <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mb-6">
         <div className="container mx-auto flex items-center justify-center text-blue-gray-900">
           <div className="hidden lg:block">{navList}</div>
         </div>
