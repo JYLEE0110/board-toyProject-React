@@ -20,21 +20,15 @@ const initState = {
 const Listcomponent = ({queryObj, movePage, moveRead}) => {
 
   const [boardList, setBoardList] = useState({...initState})
-  const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
     getBoardList(queryObj).then((data) => {
       setBoardList(data)
-      setLoading(false)
-
     })
   },[queryObj])
   
   const TABLE_HEAD = ["Bno", "Writer", "Title", "RegistDate", "FileName"];
 
-  if(loading){
-    return <div>Loading.........</div>
-  }
     return ( 
 
       <Card className="h-full w-full">
